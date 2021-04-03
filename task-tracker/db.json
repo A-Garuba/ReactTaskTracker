@@ -13,10 +13,10 @@
       "reminder": true
     },
     {
-      "text": "Run bands up",
+      "text": "Take out the trash",
       "day": "Tomorrow",
-      "reminder": true,
-      "id": 4
+      "reminder": false,
+      "id": 3
     }
   ]
 }
