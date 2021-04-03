@@ -1,12 +1,26 @@
 import {useState, useEffect} from 'react'
+import {BrowserRouter as Router, Route} from 'react-router-dom'
 import Header from './components/Header'
+import Footer from './components/Footer'
+import About from './components/About'
 import Tasks from './components/Tasks'
 import AddTask from './components/AddTask'
+
+/**
+ * App runs Task Tracker and contains all of the applications components/logic
+ * The tasks are loaded from json-server (db.json) and displayed to the UI.
+ * User requests are sent to server, UI updated with response
+ *
+ * State: Tasks from server, boolean for Header's Add button
+ *
+ * Returns application's main JSX for the homepage
+ */
 
 const App = () => {
 	const [showAddTask, setShowAddTask] = useState(false)
 	const [tasks, setTasks] = useState([])
 
+	// initially load Tasks from server
 	useEffect(() => {
 		const getTasks = async () => {
 			const tasksFromServer = await fetchTasks()
@@ -117,20 +131,38 @@ const App = () => {
 		)
 	}
 
-	//Main JSX for application
+	/*** Main JSX for application ***/
+
+	//Displays components: Header, Tasks, and Footer. The Header and Tasks toggle with About page
 	return (
-		<div className='container'>
-			<Header
-				onAdd={() => setShowAddTask(!showAddTask)}
-				showAdd={showAddTask}
-			/>
-			{showAddTask && <AddTask onAdd={addTask} />}
-			{tasks.length > 0 ? (
-				<Tasks tasks={tasks} onDelete={deleteTask} onToggle={toggleReminder} />
-			) : (
-				'No Tasks To Complete.'
-			)}
-		</div>
+		<Router>
+			<div className='container'>
+				<Header
+					onAdd={() => setShowAddTask(!showAddTask)}
+					showAdd={showAddTask}
+				/>
+				<Route
+					path='/'
+					exact
+					render={(props) => (
+						<>
+							{showAddTask && <AddTask onAdd={addTask} />}
+							{tasks.length > 0 ? (
+								<Tasks
+									tasks={tasks}
+									onDelete={deleteTask}
+									onToggle={toggleReminder}
+								/>
+							) : (
+								'No Tasks To Show'
+							)}
+						</>
+					)}
+				/>
+				<Route path='/about' component={About} />
+				<Footer />
+			</div>
+		</Router>
 	)
 }
 

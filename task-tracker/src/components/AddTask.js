@@ -1,10 +1,18 @@
 import {useState} from 'react'
 
+// AddTask component handles form submission for adding a task
+// component-state: text, day, and reminder
+// 		^updated in real-time (pre-submit)
+
 const AddTask = ({onAdd}) => {
 	const [text, setText] = useState('')
 	const [day, setDay] = useState('')
 	const [reminder, setReminder] = useState(false)
 
+	/**
+	 * This function handles the form's onSubmit event.
+	 * Passes component-state information up to App (onAdd) and resets state
+	 */
 	const formSubmit = (e) => {
 		e.preventDefault()
 

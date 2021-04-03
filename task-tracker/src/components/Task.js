@@ -1,5 +1,11 @@
 import {FaTimes} from 'react-icons/fa'
 
+/**
+ * Task component handles displaying each task.
+ * onDelete handles user deleting task
+ * onToggle handles user setting/removing reminder on task
+ */
+
 const Task = ({task, onDelete, onToggle}) => {
 	return (
 		<div

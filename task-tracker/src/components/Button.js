@@ -1,6 +1,9 @@
 import PropTypes from 'prop-types'
 
-const Button = ({ color, text, onClick }) => {
+// Button component receives color and text parameters to display
+// onClick function is delegated to parent
+
+const Button = ({color, text, onClick}) => {
 	return (
 		<button onClick={onClick} style={{backgroundColor: color}} className='btn'>
 			{text}
