@@ -1,10 +1,7 @@
 import {useState, useEffect} from 'react'
 import {BrowserRouter as Router, Route} from 'react-router-dom'
-import Header from './components/Header'
-import Footer from './components/Footer'
-import About from './components/About'
-import Tasks from './components/Tasks'
-import AddTask from './components/AddTask'
+
+import {Header, Footer, About, Tasks, AddTask} from './components/compindex'
 
 /**
  * App runs Task Tracker and contains all of the applications components/logic

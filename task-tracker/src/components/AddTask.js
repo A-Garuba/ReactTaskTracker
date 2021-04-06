@@ -1,12 +1,18 @@
 import {useState} from 'react'
 
 // AddTask component handles form submission for adding a task
-// component-state: text, day, and reminder
+// component-state: text, date, and reminder
 // 		^updated in real-time (pre-submit)
 
 const AddTask = ({onAdd}) => {
+	var x = new Date()
+	x.setDate(x.getDate() - 1)
+	const TODAY = x.toISOString().split('T')[0]
+
+	// Form's state variables
 	const [text, setText] = useState('')
-	const [day, setDay] = useState('')
+	const [date, setDate] = useState(TODAY)
+
 	const [reminder, setReminder] = useState(false)
 
 	/**
@@ -16,15 +22,10 @@ const AddTask = ({onAdd}) => {
 	const formSubmit = (e) => {
 		e.preventDefault()
 
-		if (!text) {
-			alert('Please add a task')
-			return
-		}
-
-		onAdd({text, day, reminder})
+		onAdd({text, date, reminder})
 
 		setText('')
-		setDay('')
+		setDate(TODAY)
 		setReminder(false)
 	}
 
@@ -37,15 +38,17 @@ const AddTask = ({onAdd}) => {
 					placeholder='Add Task'
 					value={text}
 					onChange={(e) => setText(e.target.value)}
+					required
 				/>
 			</div>
 			<div className='form-control'>
-				<label>Day & Time</label>
+				<label>Date</label>
 				<input
-					type='text'
-					placeholder='Add Day & Time'
-					value={day}
-					onChange={(e) => setDay(e.target.value)}
+					type='date'
+					value={date}
+					min={TODAY}
+					onChange={(e) => setDate(e.target.value)}
+					required
 				/>
 			</div>
 			<div className='form-control form-control-check'>
