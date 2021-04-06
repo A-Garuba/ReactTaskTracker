@@ -19,7 +19,7 @@ const Task = ({task, onDelete, onToggle}) => {
 					onClick={() => onDelete(task.id)}
 				/>
 			</h3>
-			<p>{new Date(task.date).toDateString()}</p>
+			<p>{new Date(task.date + 'T00:00:00').toDateString()}</p>
 		</div>
 	)
 }

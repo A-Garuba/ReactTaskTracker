@@ -73,6 +73,10 @@ const App = () => {
 		// Update UI with response
 		const data = await res.json()
 
+		//Insert in chronological order
+		// var element = new Date(data.date)
+		// console.log(element)
+		//tasks.length > 1 ? console.log('Yes') : console.log('no')
 		setTasks([...tasks, data])
 
 		/*

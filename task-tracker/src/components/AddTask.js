@@ -5,15 +5,15 @@ import {useState} from 'react'
 // 		^updated in real-time (pre-submit)
 
 const AddTask = ({onAdd}) => {
-	var x = new Date()
-	x.setDate(x.getDate() - 1)
+	// store today's date yyyy-mm-dd
+	const x = new Date()
 	const TODAY = x.toISOString().split('T')[0]
 
 	// Form's state variables
-	const [text, setText] = useState('')
-	const [date, setDate] = useState(TODAY)
+	const [text, setFormText] = useState('')
+	const [date, setFormDate] = useState(TODAY)
 
-	const [reminder, setReminder] = useState(false)
+	const [reminder, setFormReminder] = useState(false)
 
 	/**
 	 * This function handles the form's onSubmit event.
@@ -24,9 +24,9 @@ const AddTask = ({onAdd}) => {
 
 		onAdd({text, date, reminder})
 
-		setText('')
-		setDate(TODAY)
-		setReminder(false)
+		setFormText('')
+		setFormDate(TODAY)
+		setFormReminder(false)
 	}
 
 	return (
@@ -37,7 +37,7 @@ const AddTask = ({onAdd}) => {
 					type='text'
 					placeholder='Add Task'
 					value={text}
-					onChange={(e) => setText(e.target.value)}
+					onChange={(e) => setFormText(e.target.value)}
 					required
 				/>
 			</div>
@@ -47,7 +47,7 @@ const AddTask = ({onAdd}) => {
 					type='date'
 					value={date}
 					min={TODAY}
-					onChange={(e) => setDate(e.target.value)}
+					onChange={(e) => setFormDate(e.target.value)}
 					required
 				/>
 			</div>
@@ -57,7 +57,7 @@ const AddTask = ({onAdd}) => {
 					type='checkbox'
 					checked={reminder}
 					value={reminder}
-					onChange={(e) => setReminder(e.currentTarget.checked)}
+					onChange={(e) => setFormReminder(e.currentTarget.checked)}
 				/>
 			</div>
 
