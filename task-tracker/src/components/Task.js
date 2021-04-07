@@ -3,13 +3,19 @@ import {FaTimes} from 'react-icons/fa'
 /**
  * Task component handles displaying each task.
  * onDelete handles user deleting task
- * onToggle handles user setting/removing reminder on task
+ * onToggle handles user setting/removing priority on task
  */
 
 const Task = ({task, onDelete, onToggle}) => {
+	const options = {
+		weekday: 'long',
+		//year: 'numeric',
+		month: 'long',
+		day: 'numeric',
+	}
 	return (
 		<div
-			className={`task ${task.reminder ? 'reminder' : ''}`}
+			className={`task ${task.priority ? 'priority' : ''}`}
 			onDoubleClick={() => onToggle(task.id)}
 		>
 			<h3>
@@ -19,7 +25,12 @@ const Task = ({task, onDelete, onToggle}) => {
 					onClick={() => onDelete(task.id)}
 				/>
 			</h3>
-			<p>{new Date(task.date + 'T00:00:00').toDateString()}</p>
+			<p>
+				{new Date(task.date + 'T00:00:00').toLocaleDateString(
+					undefined,
+					options
+				)}
+			</p>
 		</div>
 	)
 }

@@ -1,19 +1,25 @@
 import {useState} from 'react'
 
 // AddTask component handles form submission for adding a task
-// component-state: text, date, and reminder
+// component-state: text, date, and priority
 // 		^updated in real-time (pre-submit)
 
 const AddTask = ({onAdd}) => {
 	// store today's date yyyy-mm-dd
-	const x = new Date()
-	const TODAY = x.toISOString().split('T')[0]
+	var x = new Date(),
+		month = '' + (x.getMonth() + 1),
+		day = '' + x.getDate(),
+		year = x.getFullYear()
+
+	if (month.length < 2) month = '0' + month
+	if (day.length < 2) day = '0' + day
+
+	const TODAY = [year, month, day].join('-')
 
 	// Form's state variables
 	const [text, setFormText] = useState('')
 	const [date, setFormDate] = useState(TODAY)
-
-	const [reminder, setFormReminder] = useState(false)
+	const [priority, setFormPriority] = useState(false)
 
 	/**
 	 * This function handles the form's onSubmit event.
@@ -22,11 +28,10 @@ const AddTask = ({onAdd}) => {
 	const formSubmit = (e) => {
 		e.preventDefault()
 
-		onAdd({text, date, reminder})
+		onAdd({text, date, priority})
 
 		setFormText('')
-		setFormDate(TODAY)
-		setFormReminder(false)
+		setFormPriority(false)
 	}
 
 	return (
@@ -52,12 +57,12 @@ const AddTask = ({onAdd}) => {
 				/>
 			</div>
 			<div className='form-control form-control-check'>
-				<label>Set Reminder</label>
+				<label>Set Priority</label>
 				<input
 					type='checkbox'
-					checked={reminder}
-					value={reminder}
-					onChange={(e) => setFormReminder(e.currentTarget.checked)}
+					checked={priority}
+					value={priority}
+					onChange={(e) => setFormPriority(e.currentTarget.checked)}
 				/>
 			</div>
 

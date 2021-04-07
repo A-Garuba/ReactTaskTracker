@@ -57,8 +57,9 @@ const App = () => {
 	/*
 	 * Add Task
 	 *
-	 * This function sends a POST request containing a Task object to the server.
-	 * Then, it updates the UI with the response.
+	 * This function sends a POST request containing a Task object to the
+	 * server. Then, it updates the UI task array with a brute force
+	 * chronological insertion.
 	 * Input: Task object
 	 */
 	const addTask = async (task) => {
@@ -74,10 +75,20 @@ const App = () => {
 		const data = await res.json()
 
 		//Insert in chronological order
-		// var element = new Date(data.date)
-		// console.log(element)
-		//tasks.length > 1 ? console.log('Yes') : console.log('no')
-		setTasks([...tasks, data])
+		var insertDate = new Date(data.date)
+		var arrDate = ''
+		var i = 0
+
+		while (i < tasks.length) {
+			arrDate = new Date(tasks[i].date)
+			if (insertDate.getTime() < arrDate.getTime()) {
+				break
+			}
+			i++
+		}
+
+		tasks.splice(i, 0, data)
+		setTasks([...tasks])
 
 		/*
 		const id = Math.floor(Math.random() * 10000) + 1
@@ -103,16 +114,16 @@ const App = () => {
 	}
 
 	/*
-	 * Toggle Reminder
+	 * Toggle Priority
 	 *
-	 * This function sends a PUT request to toggle the reminder field of the
+	 * This function sends a PUT request to toggle the priority field of the
 	 * specified task ID to the server. Then, it updates the UI with the
 	 * response.
 	 * Input: Task ID
 	 */
-	const toggleReminder = async (id) => {
+	const togglePriority = async (id) => {
 		const taskToToggle = await fetchTask(id)
-		const updTask = {...taskToToggle, reminder: !taskToToggle.reminder}
+		const updTask = {...taskToToggle, priority: !taskToToggle.priority}
 
 		const res = await fetch(`http://localhost:5000/tasks/${id}`, {
 			method: 'PUT',
@@ -127,7 +138,7 @@ const App = () => {
 
 		setTasks(
 			tasks.map((task) =>
-				task.id === id ? {...task, reminder: data.reminder} : task
+				task.id === id ? {...task, priority: data.priority} : task
 			)
 		)
 	}
@@ -152,7 +163,7 @@ const App = () => {
 								<Tasks
 									tasks={tasks}
 									onDelete={deleteTask}
-									onToggle={toggleReminder}
+									onToggle={togglePriority}
 								/>
 							) : (
 								'No Tasks To Show'
