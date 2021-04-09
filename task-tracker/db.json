@@ -1,10 +1,28 @@
 {
   "tasks": [
     {
-      "text": "Drop out of middle school",
-      "date": "2021-04-12",
+      "text": "Get cooked",
+      "date": "2021-04-15",
+      "priority": false,
+      "id": 4
+    },
+    {
+      "text": "Double up",
+      "date": "2021-04-18",
+      "priority": false,
+      "id": 7
+    },
+    {
+      "text": "Get cooked again",
+      "date": "2021-04-22",
+      "priority": false,
+      "id": 8
+    },
+    {
+      "text": "Struggle with PHP",
+      "date": "2021-04-19",
       "priority": true,
-      "id": 3
+      "id": 9
     }
   ]
 }

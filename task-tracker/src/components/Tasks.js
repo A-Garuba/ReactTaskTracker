@@ -6,6 +6,7 @@ import Task from './Task'
 const Tasks = ({tasks, onDelete, onToggle}) => {
 	return (
 		<>
+			Double-click: priority
 			{tasks.map((task) => (
 				<Task
 					key={task.id}

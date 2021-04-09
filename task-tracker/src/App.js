@@ -35,9 +35,40 @@ const App = () => {
 	 */
 	const fetchTasks = async () => {
 		const res = await fetch('http://localhost:5000/tasks')
-		const data = await res.json()
+		var data = await res.json()
 
-		return data
+		//Retrieve in chronological order
+		if (data.length > 1) {
+			var fetchedTasks = [],
+				lowestDate = '',
+				lowestDateID = '',
+				currentDate = '',
+				i = ''
+
+			while (data.length > 0) {
+				lowestDate = new Date(data[0].date)
+				lowestDateID = data[0].id
+
+				for (i = 1; i < data.length; i++) {
+					currentDate = new Date(data[i].date)
+
+					if (lowestDate.getTime() > currentDate.getTime()) {
+						lowestDate = currentDate
+						lowestDateID = data[i].id
+					}
+				}
+				//Add next chronological task to returned array
+				fetchedTasks.push(await fetchTask(lowestDateID))
+				//remove this task from database copy
+				data = data.filter((task) => {
+					return task.id !== lowestDateID
+				})
+			}
+
+			return fetchedTasks
+		} else {
+			return data
+		}
 	}
 
 	/*
