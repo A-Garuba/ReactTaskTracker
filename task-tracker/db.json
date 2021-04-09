@@ -1,28 +1,10 @@
 {
   "tasks": [
     {
-      "text": "Go to the store",
-      "date": "2021-04-08",
-      "priority": false,
-      "id": 1
-    },
-    {
-      "text": "Run around",
-      "date": "2021-04-10",
-      "priority": true,
-      "id": 2
-    },
-    {
       "text": "Drop out of middle school",
       "date": "2021-04-12",
       "priority": true,
       "id": 3
-    },
-    {
-      "text": "Argue with advisor about Angular JS",
-      "date": "2021-04-10",
-      "priority": false,
-      "id": 4
     }
   ]
 }
