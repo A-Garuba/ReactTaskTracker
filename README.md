@@ -1,5 +1,6 @@
 # ReactTaskTracker
- React app which enhances productivity by allowing the user to keep track of day-to-day tasks
+ React app which enhances productivity by allowing the user to keep track of day-to-day tasks.
+ Based on Traversy video: https://youtu.be/w7ejDZ8SWv8.
 
 ## Execution
  Server: npm run server
